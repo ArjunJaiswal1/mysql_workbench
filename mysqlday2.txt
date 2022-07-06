@@ -1,0 +1,169 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| brp                |
+| cqa_105_106        |
+| daytwo             |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use employee;
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| emp_info           |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> desc emp_info;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(45) | NO   |     | NULL    |                |
+| occupation | varchar(35) | NO   |     | NULL    |                |
+| age        | int         | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> select *from emp_info;
++----+-------+------------+-----+
+| id | name  | occupation | age |
++----+-------+------------+-----+
+|  1 | Arjun | Doctor     |  24 |
+|  2 | ravi  | engineer   |  45 |
+|  3 | sony  | business   |  34 |
++----+-------+------------+-----+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp_info values(4,'prakash','HR',34),(5,'sunny','tl',23);
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select *from emp_info;
++----+---------+------------+-----+
+| id | name    | occupation | age |
++----+---------+------------+-----+
+|  1 | Arjun   | Doctor     |  24 |
+|  2 | ravi    | engineer   |  45 |
+|  3 | sony    | business   |  34 |
+|  4 | prakash | HR         |  34 |
+|  5 | sunny   | tl         |  23 |
++----+---------+------------+-----+
+5 rows in set (0.00 sec)
+
+mysql> create table stu_info (
+    -> id int NOT NULL auto_increment,name varchar(45) NOT NULL,occupation varchar(35) NOT NULL,age int NOT NULL,PRIMARY KEY(ID));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc stu_info;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| name       | varchar(45) | NO   |     | NULL    |                |
+| occupation | varchar(35) | NO   |     | NULL    |                |
+| age        | int         | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into stu_info values(4,'prakash','HR',34),(5,'sunny','tl',23
+    -> );
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from stu_info;
++----+---------+------------+-----+
+| id | name    | occupation | age |
++----+---------+------------+-----+
+|  4 | prakash | HR         |  34 |
+|  5 | sunny   | tl         |  23 |
++----+---------+------------+-----+
+2 rows in set (0.00 sec)
+
+mysql> drop table stu_info;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| emp_info           |
++--------------------+
+1 row in set (0.05 sec)
+
+mysql> ALTER TABLE emp_info  ADD email varchar(45) not null;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp_info;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| ename      | varchar(45) | NO   |     | NULL    |                |
+| occupation | varchar(35) | NO   |     | NULL    |                |
+| age        | int         | YES  |     | NULL    |                |
+| email      | varchar(45) | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE emp_info  MODIFY age int null;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp_info;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| ename      | varchar(45) | NO   |     | NULL    |                |
+| occupation | varchar(35) | NO   |     | NULL    |                |
+| age        | int         | YES  |     | NULL    |                |
+| email      | varchar(45) | NO   |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE emp_info  DROP COLUMN email;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp_info;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| ename      | varchar(45) | NO   |     | NULL    |                |
+| occupation | varchar(35) | NO   |     | NULL    |                |
+| age        | int         | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE emp_info  CHANGE COLUMN name ename    varchar(45) not null;
+ERROR 1054 (42S22): Unknown column 'name' in 'emp_info'
+mysql> ALTER TABLE emp_info  CHANGE COLUMN ename Aname    varchar(45) not null;
+ERROR 1054 (42S22): Unknown column 'ename' in 'emp_info'
+mysql> ALTER TABLE emp_info CHANGE COLUMN Aname Sname varchar(35) not null;
+Query OK, 5 rows affected (0.08 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> desc emp_info;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| id         | int         | NO   | PRI | NULL    | auto_increment |
+| Sname      | varchar(35) | NO   |     | NULL    |                |
+| occupation | varchar(35) | NO   |     | NULL    |                |
+| age        | int         | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql>
